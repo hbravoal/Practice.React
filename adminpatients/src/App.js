@@ -1,10 +1,26 @@
-import React,{Fragment, useState} from 'react';
+import React,{Fragment, useState,useEffect} from 'react';
 import Form from './components/Form';
 import Quotes from './components/Quote';
 
 function App() {
-  const [quotes,SetQuotes] = useState([]);
+  //Citas en el Local Storage
+
+    let  quoteInitials = JSON.parse(localStorage.getItem('quotes'));
+    if(!quoteInitials){
+      quoteInitials = [];
+    }
+
+  const [quotes,SetQuotes] = useState(quoteInitials);
   //Función que tome las citas actuales y agrega la nueva
+
+  //Use Efec para realizar ciertas acciones cuando el state cambia
+  useEffect(()=>{
+    if(quoteInitials){
+      localStorage.setItem('quotes',JSON.stringify(quotes));
+    }else{
+      quoteInitials.setItem('quotes',JSON.stringify([]));
+    }
+  },[quotes])
 
   const CreateQuote= quote => {
     console.log(quote);
