@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
  const Quote = ({quote,DeleteQuote}) => {
      const {pet,owner,date,hour,symptoms} = quote;
     return (
@@ -18,4 +18,10 @@ import React from 'react';
         </div>
     );
 };
+
+
+Quote.propTpes = {
+     quote : PropTypes.object.isRequired,
+     DeleteQuote : PropTypes.func.isRequired
+}
 export default Quote;

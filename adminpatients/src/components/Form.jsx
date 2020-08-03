@@ -1,5 +1,7 @@
 import React,{Fragment,useState} from 'react';
 import uuid from 'uuid/dist/v4';
+import PropTypes from 'prop-types';
+
 const Form = ({CreateQuote})=> {
     //Crear State de Citas
     const [quote,setQuote] = useState({
@@ -11,45 +13,47 @@ const Form = ({CreateQuote})=> {
         symptoms:''
         
     });
+
     const [error,setError] = useState(false);
-//Functión que se ejecuta cda que el usuario escribe en un input
-const handleChange = (e) => {
-console.log(e.target.value);
-   setQuote({
-       ...quote,
-       [e.target.name]: e.target.value
-   })
-}
 
-//Extraer Valores
-const {pet,owner,date,hour,symptoms} = quote;
-
-const onSubmitQuote= (e) =>{
-    e.preventDefault();
-   
-    //Validar Información
-    if(pet.trim() === '' || owner.trim() === '' || date.trim() === '' || hour.trim() === '' ||symptoms.trim() === ''){
-        setError(true);
-        return;
-    }
-    setError(false);
-    //Asignar un ID.
-    quote.id = uuid();
-    console.log(quote)
-    //Crear Cita
-    CreateQuote(quote);
-    console.log('Agregando...')
-    
-    //Reiniciar form
+    //Functión que se ejecuta cda que el usuario escribe en un input
+    const handleChange = (e) => {
+    console.log(e.target.value);
     setQuote({
-        pet:'',
-        owner:'',
-        date:'',
-        hour:'',
-        symptoms:''
+        ...quote,
+        [e.target.name]: e.target.value
     })
+    }
 
-}
+    //Extraer Valores
+    const {pet,owner,date,hour,symptoms} = quote;
+
+    const onSubmitQuote= (e) =>{
+        e.preventDefault();
+    
+        //Validar Información
+        if(pet.trim() === '' || owner.trim() === '' || date.trim() === '' || hour.trim() === '' ||symptoms.trim() === ''){
+            setError(true);
+            return;
+        }
+        setError(false);
+        //Asignar un ID.
+        quote.id = uuid();
+        console.log(quote)
+        //Crear Cita
+        CreateQuote(quote);
+        console.log('Agregando...')
+        
+        //Reiniciar form
+        setQuote({
+            pet:'',
+            owner:'',
+            date:'',
+            hour:'',
+            symptoms:''
+        })
+
+    }
 
     return (
        <Fragment>
@@ -105,4 +109,8 @@ const onSubmitQuote= (e) =>{
        </Fragment>
     );
 };
+
+Form.propTypes = {
+    CreateQuote: PropTypes.func.isRequired
+}
 export default Form;

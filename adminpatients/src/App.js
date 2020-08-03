@@ -15,10 +15,11 @@ function App() {
 
   //Use Efec para realizar ciertas acciones cuando el state cambia
   useEffect(()=>{
+    let  quoteInitials = JSON.parse(localStorage.getItem('quotes'));
     if(quoteInitials){
       localStorage.setItem('quotes',JSON.stringify(quotes));
     }else{
-      quoteInitials.setItem('quotes',JSON.stringify([]));
+      localStorage.setItem('quotes',JSON.stringify([]));
     }
   },[quotes])
 
@@ -41,7 +42,11 @@ function App() {
       <div className="container">        
         <div className="row">
           <div className="one-half column">
-            <Form CreateQuote={CreateQuote}></Form>
+            <Form 
+              CreateQuote={CreateQuote}
+            >
+
+            </Form>
           </div>
           <div className="one-half column">
             <h2>{title}</h2>
